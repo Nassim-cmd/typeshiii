@@ -1,0 +1,938 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    padding-top: 120px; /* Zorgt ervoor dat de inhoud niet onder de speler valt */
+}
+
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(60, 60, 60, 0.5), rgba(0, 0, 0, 0.7));
+    z-index: -1;
+}
+
+header {
+    background-color: rgba(28, 28, 28, 0.9);
+    padding: 20px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.navbar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.navbar ul li {
+    display: inline;
+    margin: 0 20px;
+}
+
+.navbar a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+.navbar a:hover {
+    color: #1db954; /* Spotify groen */
+    text-shadow: 0 0 10px rgba(29, 185, 84, 0.7);
+}
+
+.content {
+    padding: 50px 20px;
+}
+
+.song-list-container {
+    max-height: 400px; /* Pas deze hoogte aan naar wens */
+    overflow-y: auto; /* Scrollen inschakelen */
+    padding-right: 10px; /* Ruimte voor scrollbar */
+    margin-top: 20px; /* Wat ruimte boven de lijst */
+}
+
+.song-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 10px; /* Wat ruimte aan de zijkanten */
+}
+
+.song-item {
+    background-color: #282828;
+    margin: 15px;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.song-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.artist-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(28, 28, 28, 0.9);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Player styles */
+.music-player {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(28, 28, 28, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    text-align: center;
+}
+
+.music-player img.current-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.music-player .player-details {
+    display: flex;
+    align-items: center;
+}
+
+.music-player .track-info {
+    text-align: left;
+}
+
+.music-player .track-info .track-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.music-player .track-info .track-artist {
+    font-size: 1rem;
+}
+
+.music-player .player-controls {
+    display: flex;
+    align-items: center;
+}
+
+.music-player .player-controls button {
+    background-color: #1db954;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    margin: 0 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.music-player .player-controls button:hover {
+    background-color: #1aa34a; /* Donkerder groen */
+}
+
+.music-player .player-progress {
+    display: flex;
+    align-items: center;
+}
+
+.music-player .player-progress .current-time,
+.music-player .player-progress .total-duration {
+    width: 50px;
+}
+
+.music-player .player-progress .seek_slider {
+    margin: 0 10px;
+    flex-grow: 1;
+}
+
+.music-player .player-progress .seek_slider::-webkit-slider-thumb {
+    background: #1db954;
+    border-radius: 50%;
+}
+.hero-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 400px; /* Hoogte van de hero sectie */
+    text-align: center;
+}
+
+.hero-banner h1 {
+    font-size: 3rem; /* Grote tekst */
+    margin: 0;
+    color: #ffffff;
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+.listen-button {
+    background-color: #1db954; /* Groene achtergrond */
+    color: #ffffff;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.listen-button:hover {
+    background-color: #1aa34a; /* Donkerder groen */
+    transform: scale(1.1); /* Knop wordt groter bij hover */
+}
+.hero-banner h1 {
+    font-size: 4rem; /* Grote tekst */
+    margin: 0;
+    color: #ffffff;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Schaduw voor tekst */
+    margin-bottom: 20px; /* Ruimte onder de tekst */
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+.listen-button {
+    background-color: #1db954;
+    color: #ffffff;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 50px; /* Ronde knoppen */
+    text-decoration: none;
+    font-size: 1.5rem;
+    transition: transform 0.3s, background-color 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Schaduw voor de knop */
+}
+
+.listen-button:hover {
+    background-color: #1aa34a;
+    transform: scale(1.1);
+}
+/* Swipe transition effect */
+.page-transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1db954; /* De kleur van de transitie */
+    transform: translateX(100%); /* Start buiten het scherm */
+    transition: transform 0.5s ease; /* Animatie tijd en type */
+    z-index: 999; /* Zorg ervoor dat het bovenop andere elementen komt */
+}
+
+.page-transition.active {
+    transform: translateX(0); /* Breng het in zicht */
+}
+/* Voeg deze stijl toe onder de bestaande CSS */
+
+/* Music Player styles */
+.music-player .player-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraal uitlijnen */
+}
+
+.heart-container {
+    margin-left: 20px; /* Ruimte tussen knoppen en hartje */
+    cursor: pointer; /* Cursor veranderen bij hover */
+    position: relative;
+}
+
+.heart {
+    font-size: 30px;
+    color: white;
+    transition: color 0.3s;
+}
+
+.heart:hover {
+    color: red; /* Rood bij hover */
+}
+
+.heart.filled {
+    animation: fill-heart 0.5s forwards; /* Animatie voor vullen */
+}
+
+@keyframes fill-heart {
+    from {
+        color: red;
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.5);
+        opacity: 0; /* Fading effect */
+    }
+}
+
+/* Player progress styles */
+.player-progress {
+    display: flex;
+    align-items: center;
+    margin-top: 10px; /* Ruimte boven de tijdsbalk */
+}
+
+.player-progress .seek_slider {
+    margin: 0 10px;
+    flex-grow: 1;
+}
+/* Herhaal-knop */
+.repeat-icon {
+    width: 30px; /* Pas de grootte aan naar wens */
+    height: 30px;
+}
+
+/* Hart-knop */
+.heart-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.heart-icon {
+    width: 30px;
+    height: 30px;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.heart-button:hover .heart-icon {
+    color: red; /* Verander naar rood bij hover */
+}
+
+/* Effect voor de hart-knop bij klikken */
+.heart-button.active .heart-icon {
+    animation: glow 1s forwards;
+}
+
+@keyframes glow {
+    0% {    
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+}
+
+/* Stijl voor de huidige afbeelding in de speler */
+.music-player img.current-image {
+    max-width: 80px; /* Max grootte */
+    max-height: 80px;
+    border-radius: 50%; /* Maak het rond */
+    border: 3px solid rgba(255, 255, 255, 0.8); /* Ronde outline */
+}
+
+/* Player styles */
+.music-player {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(28, 28, 28, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    text-align: center;
+}
+
+.music-player .track-info {
+    text-align: left;
+}
+/* Herhaal-knop */
+.repeat-icon {
+    width: 30px; /* Pas de grootte aan naar wens */
+    height: 30px;
+}
+
+/* Hart-knop */
+.heart-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.heart-icon {
+    width: 30px;
+    height: 30px;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.heart-button:hover .heart-icon {
+    color: red; /* Verander naar rood bij hover */
+}
+
+/* Effect voor de hart-knop bij klikken */
+.heart-button.active .heart-icon {
+    animation: glow 1s forwards;
+}
+
+@keyframes glow {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+}
+
+/* Stijl voor de huidige afbeelding in de speler */
+.music-player img.current-image {
+    max-width: 80px; /* Max grootte */
+    max-height: 80px;
+    border-radius: 50%; /* Maak het rond */
+    border: 3px solid rgba(255, 255, 255, 0.8); /* Ronde outline */
+}
+
+/* Player styles */
+.music-player {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(28, 28, 28, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    text-align: center;
+}
+.track-art {
+    width: 50px; /* Kleine afbeelding */
+    height: 50px; /* Kleine afbeelding */
+    border-radius: 50%; /* Rond uitsnijden */
+    border: 2px solid rgba(255, 255, 255, 0.8); /* Witte outline */
+    margin-right: 15px; /* Ruimte tussen afbeelding en tekst */
+}
+.repeat-button img.active {
+    filter: hue-rotate(90deg); /* or any other visual indicator */
+}
+/* Ensure consistent button size and alignment */
+.music-player .player-controls button,
+.music-player .player-controls .repeat-button img,
+.music-player .heart-button img {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.music-player .player-controls button,
+.music-player .player-controls .repeat-button img,
+.music-player .heart-button img {
+    width: 30px;
+    height: 30px;
+}
+
+.music-player .player-controls .repeat-button {
+    background-color: #1db954;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.music-player .player-controls .repeat-button img {
+    width: 20px;
+    height: 20px;
+}
+
+.music-player .player-controls .repeat-button:hover {
+    background-color: #1aa34a; /* Donkerder groen */
+}
+
+/* Heart button hover and fill animation */
+.heart-button img {
+    transition: filter 0.3s, transform 0.3s;
+}
+
+.heart-button img:hover {
+    filter: hue-rotate(90deg);
+}
+
+.heart-button img.filled {
+    animation: heartFill 1s forwards;
+}
+
+@keyframes heartFill {
+    from {
+        filter: grayscale(100%);
+    }
+    to {
+        filter: none;
+    }
+}
+.music-player .player-controls .repeat-button {
+    background-color: #1db954; /* Green by default */
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.music-player .player-controls .repeat-button.active {
+    background-color: #1e90ff; /* Blue when active */
+}
+
+.music-player .player-controls .repeat-button img {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s;
+}
+
+.music-player .player-controls .repeat-button img:hover {
+    background-color: #1aa34a; /* Darker green on hover */
+}
+
+/* Heart button hover and fill animation */
+.heart-button img {
+    transition: filter 0.3s, transform 0.3s;
+}
+
+.heart-button img:hover {
+    filter: hue-rotate(90deg);
+}
+
+.heart-button img.filled {
+    animation: heartFill 1s forwards;
+}
+
+@keyframes heartFill {
+    from {
+        filter: grayscale(100%);
+    }
+    to {
+        filter: none;
+    }
+}
+.music-player .player-controls .repeat-button {
+    transition: background-color 0.3s, transform 0.3s; /* Voeg transitie toe */
+}
+
+.music-player .player-controls .repeat-button.active {
+    background-color: #1e90ff; /* Blauwe kleur wanneer actief */
+}
+
+.repeat-icon {
+    transition: transform 0.3s; /* Voeg transitie toe voor de draai */
+}
+
+.repeat-icon.rotated {
+    transform: rotate(180deg); /* Draai de icoon bij activatie */
+}
+.contact-section {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.contact-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.contact-section p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.contact-section .form-group {
+    margin-bottom: 15px;
+}
+
+.contact-section label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.contact-section input,
+.contact-section textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #000;
+}
+
+.contact-section button {
+    background-color: #1db954;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.contact-section button:hover {
+    background-color: #1aa34a;
+    transform: scale(1.05);
+}
+
+#thank-you-message {
+    margin-top: 20px;
+}
+
+#thank-you-message .heart {
+    color: red;
+    font-size: 1.5rem;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Calibri';
+    background: linear-gradient(#ffdad5, #fff7f9);
+}
+.contact-container{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly; 
+}
+.contact-left{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 20px;
+}   
+.contact-left-title h2{
+    font-weight: 600;
+    color: #a363aa;
+    font-size: 40px;
+    margin-bottom: 5px;
+}
+.contact-left-title hr{
+    border: none;
+    width: 120px;
+    height: 5px;
+    background-color: #a363aa;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.contact-inputs{
+    width: 400px;
+    height: 50px;
+    border: none;
+    outline: none;
+    padding-left: 25px;
+    font-weight: 500;
+    color: #666;
+    border-radius: 50px;
+}
+
+.contact-left textarea{
+    height: 140px;
+    padding-top: 15px;
+    border-radius: 20px;
+
+}
+
+.contact-inputs:focus{
+    border: 2px solid #ff994f;
+    
+
+}
+
+.contact-inputs::placeholder{
+    color: #a9a9a9
+}
+
+.contact-left button {
+    display: flex;
+    align-items: center;
+    padding: 15px 30px;
+    font-size: 16px;
+    color: #fff;
+    gap: 10px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(270deg, #ff994f, #fa6d86); 
+    cursor: pointer;
+}
+.contact-left button img{
+    height: 15px;
+}
+
+.contact-right img{
+    width: 500px;
+}
+
+@media (max-width:800px) {
+    .contact-inputs{
+        width: 80vw;
+    }
+    .contact-right{
+        display: none;
+    }
+}
+.contact-left button {
+    display: flex;
+    align-items: center;
+    padding: 15px 30px;
+    font-size: 16px;
+    color: #fff;
+    gap: 10px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(270deg, #ff994f, #fa6d86);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.contact-left button:hover {
+    background: linear-gradient(270deg, #fa6d86, #ff994f);
+    transform: scale(1.05);
+}
+
+.contact-left button img {
+    height: 15px;
+    transition: transform 0.3s ease;
+}
+
+.contact-left button:hover img {
+    transform: translateX(5px);
+}
+
+.llisten-button {
+    background: linear-gradient(270deg, #6a5acd, #8a2be2, #ff6347, #ffa07a);
+    background-size: 400% 400%;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 18px;
+    display: inline-block;
+    transition: transform 0.4s ease, background-position 3s ease;
+}
+
+.llisten-button:hover {
+    background-position: 100% 0; /* Smooth gradient shift on hover */
+    transform: scale(1.08); /* Subtle scale for emphasis */
+}
+.fade-in {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.fade-in.active {
+    opacity: 1;
+}
+body {
+    transition: background-color 0.5s ease; /* Adjust the duration and easing function as needed */
+}
+
+/* Music Player styles */
+.music-player {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(28, 28, 28, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    text-align: center;
+}
+
+.music-player .player-controls button,
+.music-player .player-controls .repeat-button img,
+.music-player .heart-button img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s; /* Consistent transitions */
+}
+
+/* Repeat button */
+.music-player .player-controls .repeat-button {
+    background-color: #1db954;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.music-player .player-controls .repeat-button.active {
+    background-color: #1e90ff; /* Blue when active */
+}
+
+/* Heart button */
+.heart-button {
+    background: none;
+    border: none;
+    position: relative;
+}
+
+/* Ensure consistent button size and effects */
+.heart-button img {
+    transition: filter 0.3s, transform 0.3s;
+}
+
+.heart-button img:hover {
+    filter: hue-rotate(90deg);
+}
+
+/* Animation for heart button */
+.heart-button img.filled {
+    animation: heartFill 1s forwards;
+}
+#musicPlayer {
+    width: 300px; /* Set to your desired width */
+    padding: 10px; /* Adjust padding as necessary */
+    background-color: #333333; /* Donkergrijze achtergrondkleur */
+    border-radius: 8px; /* Rounded corners */
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Space items evenly */
+    margin-top: -20px; /* Verplaats de speler omhoog */
+}
+
+.play-button, .repeat-button {
+    width: 40px; /* Circle width */
+    height: 40px; /* Circle height */
+    border-radius: 50%; /* Make it circular */
+    display: flex;
+    align-items: center; /* Center the icon vertically */
+    justify-content: center; /* Center the icon horizontally */
+    background-color: #1db954; /* Groene kleur voor de knoppen */
+    cursor: pointer; /* Change cursor on hover */
+}
+
+.play-button:hover, .repeat-button:hover {
+    background-color: #1e90ff; /* Blauw op hover */
+}
+
+/* Adjust for any icons used within buttons */
+.play-button img, .repeat-button img {
+    width: 20px; /* Adjust icon size */
+    height: 20px; /* Maintain aspect ratio */
+}

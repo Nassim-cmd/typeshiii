@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>MusicVibe - Register</title>
+</head>
+<body>
+    <div class="background"></div>
+    <header>
+        <div class="navbar">
+            <div class="logo"><a href="index.html">MusicVibe</a></div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="songs.html">Songs</a></li>
+                    <li><a href="lyrics.html">Lyrics</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html">Inloggen</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="content">
+        <section id="register" class="page">
+            <h1>Register on MusicVibe</h1>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="register-username" name="username">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="register-email" name="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="register-password" name="password">
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" id="register-confirm-password" name="confirm-password">
+            </div>
+            <button type="button" onclick="register()">Register</button>
+            <p id="register-message"></p>
+        </section>
+    </main>
+    <script src="js/script.js"></script>
+</body>
+</html>

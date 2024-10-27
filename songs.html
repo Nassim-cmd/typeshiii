@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>MusicVibe - Songs</title>
+    
+    <style>
+        /* Global reset and full-page layout */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container settings to allow scrolling */
+        html, body {
+            height: 100%;
+            font-family: Arial, sans-serif;
+            overflow-y: auto;
+        }
+
+        /* Wrapper flex layout for full height */
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        .navbar ul li a.active {
+            border-bottom: 2px solid #4CAF50;
+        }
+
+        /* Ensure the background starts as white and transitions to gray/black */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white; /* Initial background color */
+            z-index: -1; /* Behind other content */
+            transition: background-color 2s ease; /* Smooth transition effect */
+        }
+
+        .song-item {
+            /* Add styles to match the previous song item squares */
+            display: inline-block;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white */
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition for hover effects */
+        }
+
+        .song-item:hover {
+            transform: scale(1.05); /* Scale effect on hover */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Shadow effect */
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <header>
+        <div class="navbar">
+            <div class="logo"><a href="index.html">MusicVibe</a></div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="songs.html" class="active">Songs</a></li>
+                    <li><a href="lyrics.html">Lyrics</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html">Inloggen</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="content">
+        <h2>Songs</h2>
+        <div class="song-list-container">
+            <div class="song-list">
+                <div class="song-item" onclick="selectSong(0)">
+                    <img src="img/song1.jpg" alt="Song 1" class="artist-image">
+                    <h3>Snelle Leven</h3>
+                    <p>Henkie T</p>
+                </div>
+                <div class="song-item" onclick="selectSong(1)">
+                    <img src="img/song2.jpg" alt="Song 2" class="artist-image">
+                    <h3>Bollide Allemand</h3>
+                    <p>SDM</p>
+                </div>
+                <div class="song-item" onclick="selectSong(2)">
+                    <img src="img/song3.jpg" alt="Song 3" class="artist-image">
+                    <h3>Song Titel 3</h3>
+                    <p>Artiest 3</p>
+                </div>
+                <div class="song-item" onclick="selectSong(3)">
+                    <img src="img/song4.jpg" alt="Song 4" class="artist-image">
+                    <h3>Song Titel 4</h3>
+                    <p>Artiest 4</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div id="musicPlayer" class="music-player" style="display:none;">
+        <div class="player-details">
+            <img id="currentArtistImage" class="track-art" src="" alt="Current Song">
+            <div class="track-info">
+                <div class="track-name" id="currentSongTitle">Song Titel - Artiest</div>
+                <div class="track-artist"></div>
+            </div>
+        </div>
+        <div class="player-controls">
+            <button class="control-button repeat-button" onclick="toggleRepeat()">
+                <img src="img/repeat-icon.png" alt="Repeat" class="repeat-icon">
+            </button>
+            <button id="prevButton" class="control-button" onclick="prevSong()">&#9664;</button>
+            <button id="playButton" class="control-button" onclick="togglePlay()">&#10074;&#10074;</button>
+            <button id="nextButton" class="control-button" onclick="nextSong()">&#9654;</button>
+        </div>
+        <div class="player-progress">
+            <span class="current-time" id="currentTime">0:00</span>
+            <input type="range" id="seekSlider" class="seek_slider" value="0" max="100">
+            <span class="total-duration" id="totalDuration">0:00</span>
+        </div>
+    </div>
+    <audio id="audioPlayer">
+        <source id="audioSource" src="" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <script src="js/script.js"></script>
+    <script>
+        // Function to change background color after a delay
+        setTimeout(() => {
+            document.querySelector('.background').style.backgroundColor = 'rgba(50, 50, 50, 0.9)'; // Change to gray/black
+        }, 1000); // Change after 2 seconds
+    </script>
+</body>
+</html>
